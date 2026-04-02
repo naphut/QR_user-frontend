@@ -23,16 +23,6 @@ const ProductDetail = () => {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [addingToCart, setAddingToCart] = useState(false);
 
-  useEffect(() => {
-    fetchProduct();
-  }, [id, fetchProduct]);
-
-  useEffect(() => {
-    if (product) {
-      fetchRelatedProducts();
-    }
-  }, [product, fetchRelatedProducts]);
-
   const fetchProduct = useCallback(async () => {
     try {
       setLoading(true);
@@ -60,6 +50,16 @@ const ProductDetail = () => {
       console.error('Error fetching related products:', error);
     }
   }, [product]);
+
+  useEffect(() => {
+    fetchProduct();
+  }, [fetchProduct]);
+
+  useEffect(() => {
+    if (product) {
+      fetchRelatedProducts();
+    }
+  }, [product, fetchRelatedProducts]);
 
   const handleAddToCart = async () => {
     if (!selectedSize) {

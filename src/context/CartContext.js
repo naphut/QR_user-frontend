@@ -16,15 +16,6 @@ export const CartProvider = ({ children }) => {
   const [cartCount, setCartCount] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
 
-  useEffect(() => {
-    loadCart();
-  }, []);
-
-  useEffect(() => {
-    updateCartSummary();
-    saveCart();
-  }, [cart, updateCartSummary, saveCart]);
-
   const loadCart = () => {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
@@ -42,6 +33,15 @@ export const CartProvider = ({ children }) => {
     setCartCount(count);
     setCartTotal(total);
   }, [cart]);
+
+  useEffect(() => {
+    loadCart();
+  }, []);
+
+  useEffect(() => {
+    updateCartSummary();
+    saveCart();
+  }, [cart, updateCartSummary, saveCart]);
 
   const addToCart = (product, quantity = 1, size = 'M', color = null) => {
     const existingItem = cart.find(item => 

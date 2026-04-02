@@ -10,10 +10,6 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchOrders();
-  }, [fetchOrders]);
-
   const fetchOrders = useCallback(async () => {
     try {
       const response = await axios.get(`${API_URL}/admin/orders`, {
@@ -26,6 +22,10 @@ const Orders = () => {
       setLoading(false);
     }
   }, [token]);
+
+  useEffect(() => {
+    fetchOrders();
+  }, [fetchOrders]);
 
   const getStatusColor = (status) => {
     switch(status) {
