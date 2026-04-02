@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
@@ -12,9 +12,9 @@ const Orders = () => {
 
   useEffect(() => {
     fetchOrders();
-  }, []);
+  }, [fetchOrders]);
 
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
     try {
       const response = await axios.get(`${API_URL}/admin/orders`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -25,7 +25,7 @@ const Orders = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
 
   const getStatusColor = (status) => {
     switch(status) {

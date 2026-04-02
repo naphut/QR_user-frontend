@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useProducts } from '../context/ProductContext';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
@@ -7,7 +7,6 @@ import toast from 'react-hot-toast';
 
 const Products = () => {
   const { category } = useParams();
-  const [searchParams] = useSearchParams();
   const { products, loading } = useProducts();
   const { addToCart } = useCart();
   const { addToWishlist, isInWishlist } = useWishlist();

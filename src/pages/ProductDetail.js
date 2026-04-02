@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
@@ -25,15 +25,15 @@ const ProductDetail = () => {
 
   useEffect(() => {
     fetchProduct();
-  }, [id]);
+  }, [id, fetchProduct]);
 
   useEffect(() => {
     if (product) {
       fetchRelatedProducts();
     }
-  }, [product]);
+  }, [product, fetchRelatedProducts]);
 
-  const fetchProduct = async () => {
+  const fetchProduct = useCallback(async () => {
     try {
       setLoading(true);
       const response = await axios.get(`${API_URL}/products/${id}`);
@@ -48,9 +48,9 @@ const ProductDetail = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id, navigate]);
 
-  const fetchRelatedProducts = async () => {
+  const fetchRelatedProducts = useCallback(async () => {
     try {
       const response = await axios.get(`${API_URL}/products/?category=${product.category}&limit=4`);
       // Filter out current product
@@ -59,7 +59,7 @@ const ProductDetail = () => {
     } catch (error) {
       console.error('Error fetching related products:', error);
     }
-  };
+  }, [product]);
 
   const handleAddToCart = async () => {
     if (!selectedSize) {

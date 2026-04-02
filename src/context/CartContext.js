@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import toast from 'react-hot-toast';
 
 const CartContext = createContext();
@@ -23,7 +23,7 @@ export const CartProvider = ({ children }) => {
   useEffect(() => {
     updateCartSummary();
     saveCart();
-  }, [cart]);
+  }, [cart, updateCartSummary, saveCart]);
 
   const loadCart = () => {
     const savedCart = localStorage.getItem('cart');
@@ -32,16 +32,16 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  const saveCart = () => {
+  const saveCart = useCallback(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
-  };
+  }, [cart]);
 
-  const updateCartSummary = () => {
+  const updateCartSummary = useCallback(() => {
     const count = cart.reduce((total, item) => total + item.quantity, 0);
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     setCartCount(count);
     setCartTotal(total);
-  };
+  }, [cart]);
 
   const addToCart = (product, quantity = 1, size = 'M', color = null) => {
     const existingItem = cart.find(item => 
