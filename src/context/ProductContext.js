@@ -31,13 +31,6 @@ export const ProductProvider = ({ children }) => {
       setCategories(uniqueCategories);
     } catch (error) {
       console.error('Error fetching products:', error);
-      if (error.response?.status === 404) {
-        console.error('Products endpoint not found');
-      } else if (error.response?.status >= 500) {
-        console.error('Server error occurred');
-      } else {
-        console.error('Network error occurred');
-      }
     } finally {
       setLoading(false);
     }
@@ -52,17 +45,12 @@ export const ProductProvider = ({ children }) => {
   };
 
   const getNewArrivals = () => {
-    console.log('Products available:', products.length);
-    const newArrivals = [...products].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0, 8);
-    console.log('New arrivals:', newArrivals.length);
-    return newArrivals;
+    return [...products].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0, 8);
   };
 
   const getBestSellers = () => {
-    // For now, return all products as best sellers since we don't have order data
-    const bestSellers = products.slice(0, 8);
-    console.log('Best sellers:', bestSellers.length);
-    return bestSellers;
+    // This would ideally come from order data, but for now return some products
+    return products.slice(0, 8);
   };
 
   const getSaleProducts = () => {

@@ -236,21 +236,9 @@ const Products = () => {
           </div>
           
           {/* Products Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProducts.map(product => {
-              // Safe image parsing with fallback
-              let images = [];
-              try {
-                images = JSON.parse(product.images);
-                if (!Array.isArray(images) || images.length === 0) {
-                  throw new Error('Invalid images array');
-                }
-              } catch (error) {
-                console.log('Image parsing error for product:', product.name, error);
-                // Use fallback image
-                images = ['https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400'];
-              }
-              
+              const images = JSON.parse(product.images);
               const discount = product.original_price 
                 ? Math.round(((product.original_price - product.price) / product.original_price) * 100)
                 : 0;
