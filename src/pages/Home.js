@@ -51,10 +51,10 @@ const Home = () => {
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 text-center">Shop by Category</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
             {[
-              { name: 'T-Shirts', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop' },
-              { name: 'Jackets', image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=300&fit=crop' },
-              { name: 'Pants', image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=300&fit=crop' },
-              { name: 'Sweatshirts', image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=300&fit=crop' }
+              { name: 'T-Shirts', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop&auto=format' },
+              { name: 'Jackets', image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=300&fit=crop&auto=format' },
+              { name: 'Pants', image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=300&fit=crop&auto=format' },
+              { name: 'Sweatshirts', image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=300&fit=crop&auto=format' }
             ].map(category => (
               <Link
                 key={category.name}
@@ -65,6 +65,9 @@ const Home = () => {
                   src={category.image}
                   alt={category.name}
                   className="w-full h-32 sm:h-48 md:h-64 object-cover group-hover:scale-110 transition duration-300"
+                  onError={(e) => {
+                    e.target.src = `https://picsum.photos/400/300?random=${category.name}`;
+                  }}
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center group-hover:bg-opacity-50 transition duration-300">
                   <span className="text-white text-base sm:text-xl font-bold">{category.name}</span>
