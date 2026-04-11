@@ -125,7 +125,19 @@ const ProductDetail = () => {
 
   if (!product) return null;
 
-  const images = JSON.parse(product.images);
+  // Safe image parsing with fallback
+  let images = [];
+  try {
+    images = JSON.parse(product.images);
+    if (!Array.isArray(images) || images.length === 0) {
+      throw new Error('Invalid images array');
+    }
+  } catch (error) {
+    console.log('Image parsing error for product:', product.name, error);
+    // Use fallback image
+    images = ['https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400'];
+  }
+  
   const sizes = JSON.parse(product.sizes);
   const discount = product.original_price 
     ? Math.round(((product.original_price - product.price) / product.original_price) * 100)
@@ -367,7 +379,19 @@ const ProductDetail = () => {
           <h2 className="text-2xl font-bold text-gray-900 mb-6">You May Also Like</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {relatedProducts.map(related => {
-              const relatedImages = JSON.parse(related.images);
+              // Safe image parsing with fallback
+              let relatedImages = [];
+              try {
+                relatedImages = JSON.parse(related.images);
+                if (!Array.isArray(relatedImages) || relatedImages.length === 0) {
+                  throw new Error('Invalid images array');
+                }
+              } catch (error) {
+                console.log('Image parsing error for related product:', related.name, error);
+                // Use fallback image
+                relatedImages = ['https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400'];
+              }
+              
               return (
                 <div
                   key={related.id}
