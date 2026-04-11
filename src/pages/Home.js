@@ -50,19 +50,24 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 text-center">Shop by Category</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-            {['T-Shirts', 'Jackets', 'Pants', 'Sweatshirts'].map(category => (
+            {[
+              { name: 'T-Shirts', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop' },
+              { name: 'Jackets', image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=300&fit=crop' },
+              { name: 'Pants', image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=300&fit=crop' },
+              { name: 'Sweatshirts', image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=300&fit=crop' }
+            ].map(category => (
               <Link
-                key={category}
-                to={`/category/${category}`}
-                className="relative group overflow-hidden rounded-lg"
+                key={category.name}
+                to={`/category/${category.name}`}
+                className="relative group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
               >
                 <img
-                  src={`https://via.placeholder.com/400x300?text=${category}`}
-                  alt={category}
+                  src={category.image}
+                  alt={category.name}
                   className="w-full h-32 sm:h-48 md:h-64 object-cover group-hover:scale-110 transition duration-300"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                  <span className="text-white text-base sm:text-xl font-bold">{category}</span>
+                <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center group-hover:bg-opacity-50 transition duration-300">
+                  <span className="text-white text-base sm:text-xl font-bold">{category.name}</span>
                 </div>
               </Link>
             ))}
