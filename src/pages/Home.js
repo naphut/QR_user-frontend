@@ -120,7 +120,20 @@ const Home = () => {
 const ProductCard = ({ product }) => {
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const [isWishlisted, setIsWishlisted] = useState(isInWishlist(product.id));
-  const images = JSON.parse(product.images);
+  
+  // Safe image parsing with fallback
+  let images = [];
+  try {
+    images = JSON.parse(product.images);
+    if (!Array.isArray(images) || images.length === 0) {
+      throw new Error('Invalid images array');
+    }
+  } catch (error) {
+    console.log('Image parsing error for product:', product.name, error);
+    // Use fallback image
+    images = ['https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400'];
+  }
+  
   const discount = product.original_price 
     ? Math.round(((product.original_price - product.price) / product.original_price) * 100)
     : 0;
