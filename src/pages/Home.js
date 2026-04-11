@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <div>
       {/* Hero Section */}
-      <div className="relative bg-gray-900 h-80 sm:h-96">
+      <div className="relative bg-gray-900 h-96">
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1200"
@@ -22,11 +22,11 @@ const Home = () => {
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
           <div className="text-white">
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4">ROUTINE</h1>
-            <p className="text-base sm:text-xl md:text-2xl mb-6 sm:mb-8">Discover the latest trends in fashion</p>
+            <h1 className="text-4xl md:text-6xl font-bold mb-4">ROUTINE</h1>
+            <p className="text-xl md:text-2xl mb-8">Discover the latest trends in fashion</p>
             <Link
               to="/products"
-              className="inline-block bg-white text-gray-900 px-6 sm:px-8 py-2 sm:py-3 rounded-md font-semibold hover:bg-gray-100 transition text-sm sm:text-base"
+              className="inline-block bg-white text-gray-900 px-8 py-3 rounded-md font-semibold hover:bg-gray-100 transition"
             >
               Shop Now
             </Link>
@@ -35,10 +35,9 @@ const Home = () => {
       </div>
 
       {/* New Arrivals */}
-      <section className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-12 sm:py-16">
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">New Arrivals</h2>
-        {/* 3 columns on phones (grid-cols-3), 2 on tablets, 4 on desktop */}
-        <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 lg:gap-6">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h2 className="text-3xl font-bold text-gray-900 mb-8">New Arrivals</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {newArrivals.slice(0, 4).map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
@@ -46,10 +45,10 @@ const Home = () => {
       </section>
 
       {/* Categories Banner */}
-      <section className="bg-gray-100 py-12 sm:py-16">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 text-center">Shop by Category</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+      <section className="bg-gray-100 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Shop by Category</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {['T-Shirts', 'Jackets', 'Pants', 'Sweatshirts'].map(category => (
               <Link
                 key={category}
@@ -59,10 +58,10 @@ const Home = () => {
                 <img
                   src={`https://via.placeholder.com/400x300?text=${category}`}
                   alt={category}
-                  className="w-full h-32 sm:h-48 md:h-64 object-cover group-hover:scale-110 transition duration-300"
+                  className="w-full h-64 object-cover group-hover:scale-110 transition duration-300"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                  <span className="text-white text-base sm:text-xl font-bold">{category}</span>
+                  <span className="text-white text-xl font-bold">{category}</span>
                 </div>
               </Link>
             ))}
@@ -71,9 +70,9 @@ const Home = () => {
       </section>
 
       {/* Best Sellers */}
-      <section className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-12 sm:py-16">
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">Best Sellers</h2>
-        <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 lg:gap-6">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h2 className="text-3xl font-bold text-gray-900 mb-8">Best Sellers</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {bestSellers.slice(0, 4).map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
@@ -82,13 +81,13 @@ const Home = () => {
 
       {/* Sale Banner */}
       {saleProducts.length > 0 && (
-        <section className="bg-red-600 py-12 sm:py-16">
-          <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3 sm:mb-4">SALE</h2>
-            <p className="text-base sm:text-xl text-white mb-6 sm:mb-8">Up to 50% off on selected items</p>
+        <section className="bg-red-600 py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-4xl font-bold text-white mb-4">SALE</h2>
+            <p className="text-xl text-white mb-8">Up to 50% off on selected items</p>
             <Link
               to="/sale"
-              className="inline-block bg-white text-red-600 px-6 sm:px-8 py-2 sm:py-3 rounded-md font-semibold hover:bg-gray-100 transition text-sm sm:text-base"
+              className="inline-block bg-white text-red-600 px-8 py-3 rounded-md font-semibold hover:bg-gray-100 transition"
             >
               Shop Sale
             </Link>
@@ -123,12 +122,12 @@ const ProductCard = ({ product }) => {
       {/* Wishlist Button */}
       <button
         onClick={handleWishlistToggle}
-        className="absolute top-1 sm:top-2 right-1 sm:right-2 z-10 bg-white rounded-full p-1.5 sm:p-2 shadow-md hover:bg-gray-100 transition-colors"
+        className="absolute top-3 right-3 z-10 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition-colors"
         aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className={`h-3.5 w-3.5 sm:h-5 sm:w-5 transition-colors ${
+          className={`h-5 w-5 transition-colors ${
             isWishlisted 
               ? 'fill-red-500 text-red-500' 
               : 'fill-none text-gray-600 hover:text-red-500'
@@ -146,30 +145,22 @@ const ProductCard = ({ product }) => {
       </button>
 
       <Link to={`/product/${product.id}`}>
-        <img 
-          src={images[0]} 
-          alt={product.name} 
-          className="w-full h-40 sm:h-56 md:h-64 object-cover" 
-        />
+        <img src={images[0]} alt={product.name} className="w-full h-64 object-cover" />
       </Link>
-      <div className="p-2 sm:p-3 md:p-4">
+      <div className="p-4">
         <div className="flex justify-between items-start">
           <div>
-            <h3 className="font-semibold text-gray-800 line-clamp-1 text-xs sm:text-sm md:text-base">
-              {product.name}
-            </h3>
-            <p className="text-xs text-gray-500 mt-0.5 sm:mt-1">{product.color}</p>
+            <h3 className="font-semibold text-gray-800 line-clamp-1">{product.name}</h3>
+            <p className="text-sm text-gray-500 mt-1">{product.color}</p>
           </div>
         </div>
-        <div className="mt-1 sm:mt-2">
-          <span className="text-sm sm:text-lg md:text-xl font-bold text-gray-900">${product.price}</span>
+        <div className="mt-2">
+          <span className="text-xl font-bold text-gray-900">${product.price}</span>
           {product.original_price && (
-            <span className="text-xs text-gray-500 line-through ml-1 sm:ml-2">${product.original_price}</span>
+            <span className="text-sm text-gray-500 line-through ml-2">${product.original_price}</span>
           )}
           {discount > 0 && (
-            <span className="ml-1 sm:ml-2 bg-red-500 text-white text-[10px] sm:text-xs px-1 sm:px-2 py-0.5 sm:py-1 rounded">
-              -{discount}%
-            </span>
+            <span className="ml-2 bg-red-500 text-white text-xs px-2 py-1 rounded">-{discount}%</span>
           )}
         </div>
       </div>
