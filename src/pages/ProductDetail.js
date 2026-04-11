@@ -33,7 +33,11 @@ const ProductDetail = () => {
       setSelectedColor(response.data.color);
     } catch (error) {
       console.error('Error fetching product:', error);
-      toast.error('Failed to load product details');
+      if (error.response?.status === 404) {
+        toast.error('Product not found');
+      } else {
+        toast.error('Failed to load product details');
+      }
       navigate('/products');
     } finally {
       setLoading(false);

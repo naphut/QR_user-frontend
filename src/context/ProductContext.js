@@ -31,6 +31,13 @@ export const ProductProvider = ({ children }) => {
       setCategories(uniqueCategories);
     } catch (error) {
       console.error('Error fetching products:', error);
+      if (error.response?.status === 404) {
+        console.error('Products endpoint not found');
+      } else if (error.response?.status >= 500) {
+        console.error('Server error occurred');
+      } else {
+        console.error('Network error occurred');
+      }
     } finally {
       setLoading(false);
     }
