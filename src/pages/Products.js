@@ -3,11 +3,12 @@ import { Link, useParams } from 'react-router-dom';
 import { useProducts } from '../context/ProductContext';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
+import { LoadingSpinner, ErrorMessage, FallbackNotice } from '../components/UIStates';
 import toast from 'react-hot-toast';
 
 const Products = () => {
   const { category } = useParams();
-  const { products, loading } = useProducts();
+  const { products, loading, error, usingFallback, fetchProducts } = useProducts();
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -34,7 +35,7 @@ const Products = () => {
     // Filter by sizes
     if (selectedSizes.length > 0) {
       filtered = filtered.filter(p => {
-        const productSizes = JSON.parse(p.sizes);
+        const productSizes = Array.isArray(p.sizes) ? p.sizes : JSON.parse(p.sizes || '[]');
         return selectedSizes.some(size => productSizes.includes(size));
       });
     }
@@ -87,15 +88,18 @@ const Products = () => {
   const hasActiveFilters = priceRange.min > 0 || priceRange.max < 200 || selectedSizes.length > 0 || selectedColors.length > 0;
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-96">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
-      </div>
-    );
+    return <LoadingSpinner />;
+  }
+
+  if (error && products.length === 0) {
+    return <ErrorMessage error={error} onRetry={fetchProducts} />;
   }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Fallback Notice */}
+      {usingFallback && <FallbackNotice />}
+      
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">
@@ -238,7 +242,7 @@ const Products = () => {
           {/* Products Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProducts.map(product => {
-              const images = JSON.parse(product.images);
+              const images = Array.isArray(product.images) ? product.images : JSON.parse(product.images || '[]');
               const discount = product.original_price 
                 ? Math.round(((product.original_price - product.price) / product.original_price) * 100)
                 : 0;
@@ -249,7 +253,7 @@ const Products = () => {
                   <div className="relative overflow-hidden bg-gray-50">
                     <Link to={`/product/${product.id}`}>
                       <img 
-                        src={images[0]} 
+                        src={images[0] || 'https://via.placeholder.com/400x300'} 
                         alt={product.name} 
                         className="w-full h-72 object-cover group-hover:scale-105 transition duration-500"
                       />
