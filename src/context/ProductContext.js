@@ -45,12 +45,17 @@ export const ProductProvider = ({ children }) => {
   };
 
   const getNewArrivals = () => {
-    return [...products].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0, 8);
+    console.log('Products available:', products.length);
+    const newArrivals = [...products].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0, 8);
+    console.log('New arrivals:', newArrivals.length);
+    return newArrivals;
   };
 
   const getBestSellers = () => {
-    // This would ideally come from order data, but for now return some products
-    return products.slice(0, 8);
+    // For now, return all products as best sellers since we don't have order data
+    const bestSellers = products.slice(0, 8);
+    console.log('Best sellers:', bestSellers.length);
+    return bestSellers;
   };
 
   const getSaleProducts = () => {
